@@ -1,0 +1,50 @@
+# Cluster cassandra
+
+services:
+  cass00:
+    image: docker.io/bitnami/cassandra:4.0
+    ports:
+      - '9040:9042'
+    environment:
+      # donne l'adresse IP des autres noeuds
+      - CASSANDRA_SEEDS=cass01, cass02
+      - CASSANDRA_CLUSTER_NAME=cluster
+      - MAX_HEAP_SIZE=2G
+      - HEAP_NEWSIZE=200M
+  cass01:
+    image: docker.io/bitnami/cassandra:4.0
+    ports:
+      - '9041:9042'
+    environment:
+      # donne l'adresse IP des autres noeuds
+      - CASSANDRA_SEEDS=cass01, cass02
+      - CASSANDRA_CLUSTER_NAME=cluster
+      - MAX_HEAP_SIZE=2G
+      - HEAP_NEWSIZE=200M
+  cass02:
+    image: docker.io/bitnami/cassandra:4.0
+    ports:
+      - '9042:9042'
+    environment:
+      - CASSANDRA_SEEDS=cass01, cass02
+      - CASSANDRA_CLUSTER_NAME=cluster
+      - MAX_HEAP_SIZE=2G
+      - HEAP_NEWSIZE=200M
+  cass03:
+    image: docker.io/bitnami/cassandra:4.0
+    ports:
+      - '9043:9042'
+    environment:
+      - CASSANDRA_SEEDS=cass01, cass02
+      - CASSANDRA_CLUSTER_NAME=cluster
+      - MAX_HEAP_SIZE=2G
+      - HEAP_NEWSIZE=200M
+  cass04:
+    image: docker.io/bitnami/cassandra:4.0
+    ports:
+      - '9044:9042'
+    environment:
+      - CASSANDRA_SEEDS=cass00, cass03, cass01, cass02
+      - CASSANDRA_CLUSTER_NAME=cluster
+      - MAX_HEAP_SIZE=2G
+      - HEAP_NEWSIZE=200M
